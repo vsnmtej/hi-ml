@@ -57,7 +57,7 @@ jobs:
           docker tag lensai/lensai-fda-cybersecurity:${FDA_VERSION} lensai/lensai-fda-cybersecurity:latest
         else
           echo "⚠️ Version ${FDA_VERSION} not found, falling back to latest..."
-          docker pull lensai/lensai-fda-cybersecurity:latest
+          docker pull lensai/lensai-fda-cybersecurity:dev
         fi
         
         echo "📦 Pulling official MCP containers from Docker Hub..."
