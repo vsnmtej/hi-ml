@@ -57,7 +57,7 @@ jobs:
           docker tag lensai/lensai-fda-cybersecurity:${FDA_VERSION} lensai/lensai-fda-cybersecurity:latest
         else
           echo "⚠️ Version ${FDA_VERSION} not found, falling back to latest..."
-          docker pull lensai/lensai-fda-cybersecurity:dev
+          docker pull lensai/lensai-fda-cybersecurity:latest
         fi
         
         echo "📦 Pulling official MCP containers from Docker Hub..."
@@ -93,7 +93,7 @@ jobs:
         # The container will spawn MCP containers internally if available
         docker run --rm \
           -e LENSAI_API_KEY="${{ secrets.LENSAI_API_KEY }}" \
-          -e LENSAI_MODEL="deepseek-ai/DeepSeek-R1" \
+          -e LENSAI_MODEL="deepseek-ai/DeepSeek-V3-0324" \
           -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
           -e GITHUB_REPO="${{ github.repository }}" \
           -e DEVICE_NAME="${{ github.event.inputs.device_name }}" \
