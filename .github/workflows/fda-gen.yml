@@ -47,23 +47,17 @@ jobs:
 
     - name: 📦 Pull FDA Generator and Tools
       run: |
-        # Define FDA generator version (pin to specific version for stability)
+        # Define FDA generator version (default to latest for automatic updates)
         # Options: 
-        #   - Specific version: 1.2.3
-        #   - Minor version: 1.2 (auto-updates patch versions)
-        #   - Major version: 1 (auto-updates minor & patch)
-        #   - Latest: latest (always newest, less stable)
-        FDA_VERSION="${{ vars.FDA_GENERATOR_VERSION || '1' }}"  # Default to major version 1
+        #   - Latest: latest (recommended - always get newest features and fixes)
+        #   - Specific version: 2.0.0 (pin for stability)
+        #   - Minor version: 2.0 (auto-updates patch versions)
+        #   - Major version: 2 (auto-updates minor & patch)
+        FDA_VERSION="${{ vars.FDA_GENERATOR_VERSION || 'latest' }}"  # Default to latest
         
         echo "📦 Pulling FDA Generator container (version: ${FDA_VERSION})..."
-        if docker pull lensai/lensai-fda-cybersecurity:${FDA_VERSION}; then
-          echo "✅ Using FDA Generator version: ${FDA_VERSION}"
-          # Tag it as 'latest' locally for consistency
-          docker tag lensai/lensai-fda-cybersecurity:${FDA_VERSION} lensai/lensai-fda-cybersecurity:latest
-        else
-          echo "⚠️ Version ${FDA_VERSION} not found, falling back to latest..."
-          docker pull lensai/lensai-fda-cybersecurity:latest
-        fi
+        docker pull lensai/lensai-fda-cybersecurity:${FDA_VERSION}
+        echo "✅ Using FDA Generator version: ${FDA_VERSION}"
         
         echo "📦 Pulling official MCP containers from Docker Hub..."
         docker pull mcp/github:latest
@@ -233,4 +227,4 @@ jobs:
 # - FDA_MAX_CODE_EVIDENCE_CHARS: Maximum characters of code evidence to include (default: 200000)
 #
 # Adjust these values based on your project's maturity and activity level.
-# For new projects with limited history, consider setting lower minimums.
+# For new projects with limited history, consider setting lower minimums.%
